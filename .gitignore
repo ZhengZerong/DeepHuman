@@ -1,0 +1,10 @@
+debug*/
+result*/
+data*/
+*.pyc
+.idea/
+*.o
+*.so
+*.exe
+tmp*
+testing_results/
