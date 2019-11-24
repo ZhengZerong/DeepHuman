@@ -8,3 +8,4 @@ data*/
 *.exe
 tmp*
 testing_results/
+build/

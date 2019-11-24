@@ -3,36 +3,14 @@ from __future__ import print_function, absolute_import, division
 import os
 import zipfile
 import time
-import pynvml
 import numpy as np
 import tensorflow as tf
 from TrainerNormal import Trainer
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-pynvml.nvmlInit()
-
-
-def waitgpu(empty_thres_duration=10):
-    empty_flag = 0
-    while True:
-        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
-        meminfo = pynvml.nvmlDeviceGetMemoryInfo(handle)
-        usage_percent = float(meminfo.used)/float(meminfo.total)
-        if usage_percent < 0.1:
-            if empty_flag >= empty_thres_duration:   # empty for 5 second
-                break
-            empty_flag += 1
-            time.sleep(1)
-            continue
-        empty_flag = 0
-        print('GPU is busy right now....waiting....')
-        print('meminfo.used/meminfo.total = %f' % usage_percent)
-        time.sleep(np.random.randint(5, 15))
 
 
 def main(img_folder, img_prefix, zip_intermedia_results=True):
-    waitgpu()
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.8)
     sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
 

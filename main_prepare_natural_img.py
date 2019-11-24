@@ -20,8 +20,8 @@ import DataUtil.renderers as renderers
 dim_h = 192
 dim_w = 128
 voxel_size = 1.0 / dim_h
-img2smpl_dir = '/media/zerong/storage01/3DHumanDataset/Img2Smpl'
-VOXELIZER_PATH = '../TrainingDataRenderer/voxelizer/build/bin'
+img2smpl_dir = 'path/to/Img2Smpl'
+VOXELIZER_PATH = './voxelizer/build/bin'
 preprocess_size = 384
 crop_orig_img = False
 
