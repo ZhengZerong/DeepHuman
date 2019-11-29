@@ -3,7 +3,7 @@ Zerong Zheng, Tao Yu, Yixuan Wei, Qionghai Dai, Yebin Liu.  ICCV 2019
 
 [[Project Page]](http://www.liuyebin.com/deephuman/deephuman.html)
 [[Paper]](http://openaccess.thecvf.com/content_ICCV_2019/papers/Zheng_DeepHuman_3D_Human_Reconstruction_From_a_Single_Image_ICCV_2019_paper.pdf)
-[[Dataset(Upon Request)]](http://www.liuyebin.com/deephuman/deephuman.html)
+[[Dataset]]()
 
 ![teaser](./assests/results_large.jpg)
 
