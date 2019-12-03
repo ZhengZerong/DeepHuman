@@ -1,0 +1,9 @@
+pip>=9.0
+scipy
+numpy
+chumpy
+opendr
+matplotlib
+scikit-image
+opencv-python
+tensorflow-gpu
