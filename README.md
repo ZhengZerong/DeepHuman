@@ -111,5 +111,5 @@ If you use this code for your research, please consider citing:
 ```
 
 ### Contact
-- Zerong Zheng [(zzr18@mails.tsinghua.edu.cn)](mailto:zzr18@mails.tsinghua.edu.cn)
+- Zerong Zheng [(zrzheng1995@foxmail.com)](mailto:zrzheng1995@foxmail.com)
 - Yebin Liu [(liuyebin@mail.tsinghua.edu.cn)](mailto:liuyebin@mail.tsinghua.edu.cn)
