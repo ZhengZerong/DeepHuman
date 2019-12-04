@@ -24,10 +24,11 @@ The dataset are available at [this link](https://drive.google.com/open?id=12V1fW
 
 ### Data Explanation
 #### SMPL Parameters
-We provide the SMPL mesh models (```smpl.obj```) as well as the the corresponding shape&pose parameters (```smpl_params.obj```)  in our dataset. 
-In a SMPL parameter txt file, three groups of coefficients are saved: shape parameters(LINE ```2```), root transformation(LINE ```4-7```) and joint rotations(LINE ```9-80```) . 
-The shape parameters corresponds to ```betas``` in SMPL model, while the joint rotations corresponds to ```thetas``` . 
-The transformation in 'RootTransformation' params means the rotation and translation of the model around the original point of the coordinate system. This is different from the SMPL official code sample, in which the model is rotated around the root joint. 
+We provide the SMPL mesh models (```smpl.obj```) as well as the the corresponding shape&pose parameters (```smpl_params.txt```)  in our dataset. 
+In a SMPL parameter .txt file, three groups of coefficients are saved: shape parameters (LINE ```2```), root transformation(LINE ```4-7```) and joint rotations(LINE ```9-80```) . 
+The 'shape parameters' correspond to ```betas``` in the SMPL model, while the 'joint rotations' correspond to ```thetas``` . 
+The transformation matrix in 'Root Transformation' means the rotation and translation of the model around the original point of the coordinate system. 
+This is different from the SMPL official code sample, in which the model is rotated around the root joint. 
 
 Here is a piece of code showing how to use those parameters to generate a corresponding SMPL mesh: 
 ```python
@@ -68,7 +69,7 @@ verts = np.matmul(verts, root_rot.transpose()) + np.reshape(root_trans, (1, -1))
 
 ```
 Note that the generated SMPL mesh would be slightly different from the one we provided (see the figure below). 
-This is because in the DoubleFusion capture system, the shape parameters are gradually optimized, and after each iteration of optimization, we add the delta translations to the previous SMPL vertices instead recalculating the vertex positions. 
+This is because in the DoubleFusion capture system, the shape parameters are gradually optimized, and after each iteration of optimization, we add the delta translations to the previous SMPL vertices instead of recalculating the vertex positions. 
 Consequently, rounding error accumulates as more and more frames are processed. 
 
 ![shape_comparison](../assests/shape_comparison.png)
