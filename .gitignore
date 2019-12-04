@@ -1,6 +1,6 @@
 debug*/
 result*/
-data*/
+data/
 *.pyc
 .idea/
 *.o
@@ -9,3 +9,4 @@ data*/
 tmp*
 testing_results/
 build/
+*smpl_webuser/
