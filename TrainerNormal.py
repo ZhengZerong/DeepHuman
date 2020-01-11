@@ -48,7 +48,6 @@ class Trainer(object):
 
         # setups data loader
         data_loader_num = 4
-        data_loader_num_half = data_loader_num //2
         data_loaders, val_data_loader = self._setup_data_loader(data_loader_num, batch_size, dataset_dir, dataset_training_indices, dataset_testing_indices)
         batch_num = len(dataset_training_indices)//batch_size
         test_batch_num = 16 // batch_size
@@ -96,28 +95,23 @@ class Trainer(object):
                 l_nml_rf = consts.lamb_nml_rf
 
                 # training ==============================================================
-                ind1, conc_imgs1, smpl_v_volumes1, mesh_volumes1 = data_loaders[iter_id % data_loader_num_half].queue.get()
-                ind2, conc_imgs2, smpl_v_volumes2, mesh_volumes2 = data_loaders[iter_id % data_loader_num_half + data_loader_num_half].queue.get()
-                conc_imgs = np.concatenate([conc_imgs1, conc_imgs2], axis=0)
-                smpl_v_volumes = np.concatenate([smpl_v_volumes1, smpl_v_volumes2], axis=0)
-                mesh_volumes = np.concatenate([mesh_volumes1, mesh_volumes2], axis=0)
+                ind, conc_imgs, smpl_v_volumes, mesh_volumes = data_loaders[iter_id % data_loader_num].queue.get()
 
                 f_dict = self._construct_feed_dict(conc_imgs, smpl_v_volumes, mesh_volumes, l_sil, l_dis, l_nml_rf, lrate)
                 f_dict_d = self._construct_feed_dict(conc_imgs, smpl_v_volumes, mesh_volumes, l_sil, l_dis, l_nml_rf, lrate_d)
 
-                # if epoch_id <= epoch_num / 3:
-                #     out = self.sess.run([recon_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss], feed_dict=f_dict)
-                #     loss_curr_list = out[1:-1]
-                #     graph_results = out[-1]
-                #
-                # elif epoch_id <= epoch_num / 3 * 2:
-                #     for _ in range(dis_reps):
-                #         self.sess.run([dis_opt], feed_dict=f_dict_d)
-                #     out = self.sess.run([nr_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss],feed_dict=f_dict)
-                #     loss_curr_list = out[1:-1]
-                #     graph_results = out[-1]
-                # else:
-                if True:
+                if epoch_id <= epoch_num / 3:
+                    out = self.sess.run([recon_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss], feed_dict=f_dict)
+                    loss_curr_list = out[1:-1]
+                    graph_results = out[-1]
+
+                elif epoch_id <= epoch_num / 3 * 2:
+                    for _ in range(dis_reps):
+                        self.sess.run([dis_opt], feed_dict=f_dict_d)
+                    out = self.sess.run([nr_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss],feed_dict=f_dict)
+                    loss_curr_list = out[1:-1]
+                    graph_results = out[-1]
+                else:
                     for _ in range(dis_reps):
                         self.sess.run([dis_opt], feed_dict=f_dict_d)
                     out = self.sess.run([recon_opt, nr_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss], feed_dict=f_dict)
@@ -203,14 +197,8 @@ class Trainer(object):
         log('#testing_data =', len(dataset_testing_indices))
 
         data_loaders = []
-        for _ in range(data_loader_num//2):
-            data = DataLoader(batch_size//2, dataset_dir, dataset_training_indices, augmentation=True)
-            data.daemon = True
-            data.start()
-            data_loaders.append(data)
-
-        for _ in range(data_loader_num//2):
-            data = DataLoader(batch_size//2, dataset_dir+'_twindom', np.asarray(range(16000)), augmentation=True)
+        for _ in range(data_loader_num):
+            data = DataLoader(batch_size, dataset_dir, dataset_training_indices, augmentation=True)
             data.daemon = True
             data.start()
             data_loaders.append(data)
