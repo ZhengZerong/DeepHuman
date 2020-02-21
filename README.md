@@ -47,7 +47,7 @@ Zerong Zheng, Tao Yu, Yixuan Wei, Qionghai Dai, Yebin Liu.  ICCV 2019
     ```
 
 ### Testing
-Prepare your image (cropping and resizing to 512x512) and run:
+Prepare your image (tightly cropping and resizing to 512x512 where the height of the person is roughly 450px) and run:
 ```bash
 python2 main_prepare_natural_img.py --file ./examples/img.jpg
 python2 main_infer_natural_img.py --file ./examples/img.jpg
