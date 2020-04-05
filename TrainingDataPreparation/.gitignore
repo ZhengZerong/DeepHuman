@@ -1,0 +1,6 @@
+synthetic_dataset*/
+build/
+validate/
+.idea/
+deprecated/
+*.pyc

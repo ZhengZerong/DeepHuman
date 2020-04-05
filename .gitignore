@@ -1,5 +1,5 @@
-debug*/
-result*/
+debug/
+results/
 data/
 *.pyc
 .idea/

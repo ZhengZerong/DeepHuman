@@ -106,15 +106,15 @@ class Trainer(object):
                     graph_results = out[-1]
 
                 elif epoch_id <= epoch_num / 3 * 2:
-                    for _ in range(dis_reps):
-                        self.sess.run([dis_opt], feed_dict=f_dict_d)
+                    # for _ in range(dis_reps):
+                    #     self.sess.run([dis_opt], feed_dict=f_dict_d)
                     out = self.sess.run([nr_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss],feed_dict=f_dict)
                     loss_curr_list = out[1:-1]
                     graph_results = out[-1]
                 else:
-                    for _ in range(dis_reps):
-                        self.sess.run([dis_opt], feed_dict=f_dict_d)
-                    out = self.sess.run([recon_opt, nr_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss], feed_dict=f_dict)
+                    # for _ in range(dis_reps):
+                    #     self.sess.run([dis_opt], feed_dict=f_dict_d)
+                    out = self.sess.run([all_opt] + [loss_collection[lk] for lk in loss_keys] + [merged_scalar_loss], feed_dict=f_dict)
                     loss_curr_list = out[2:-1]
                     graph_results = out[-1]
 

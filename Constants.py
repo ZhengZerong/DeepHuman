@@ -15,7 +15,7 @@ class Constants:
 
         # loss weights
         self.lamb_sil = 0.02
-        self.lamb_dis = 0.001
+        self.lamb_dis = 0.0
         self.lamb_nml_rf = 0.1
 
 

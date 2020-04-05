@@ -24,7 +24,7 @@ Zerong Zheng, Tao Yu, Yixuan Wei, Qionghai Dai, Yebin Liu.  ICCV 2019
     cd path/to/deephuman
     git clone https://github.com/ZhengZerong/DeepHuman
     cd DeepHuman
-    vertualenv deephuman_env
+    virtualenv deephuman_env
     source deephuman_env/bin/activate
     pip install -r requirements.txt
     ```
@@ -54,7 +54,23 @@ python2 main_infer_natural_img.py --file ./examples/img.jpg
 ```
 
 ### Training
-Coming soon...
+1. Download [THUman dataset]((https://github.com/ZhengZerong/DeepHuman/tree/master/THUmanDataset)) and upzip it into ```TrainingDataPreparation/dataset``` directory. Then update ```TrainingDataPreparation/dataset/data_list.txt``` accordingly. We provide one sample data item for reference. 
+
+2. Prepare your own background images in ```TrainingDataPreparation/bg_img``` and update ```TrainingDataPreparation/bg_img/img_list.txt``` accordingly. You can use images  from [LSUN dataset](https://www.yf.io/p/lsun). We provide one sample image item for reference. 
+
+3. Run the following command to generate training data:
+    ```
+    cd TrainingDataPreparation/
+    python2 main_render_final.py    # generate training images
+    python2 main_voxelize_final.py  # generate input/output volumes
+    ```
+
+4. Define your own training/testing split in LINE```17-22``` in ```main_train.py```. After that, run the following command to train the network:
+    ```
+    python2 main_train.py
+    ```
+
+**NOTE**: Due to the inherent limitation of our data capturing system, the THUman dataset doesn't contain enough human models with loose clothes like skirts, dresses, coats, etc. If you want to make the network more general and robust for different garments, you may need to collect more data from other sources such as [RenderPeople](https://renderpeople.com), [3DPeople](https://cv.iri.upc-csic.es/), [DeepFashion3D](https://arxiv.org/abs/2003.12753), etc. 
 
 
 ### LICENSE
