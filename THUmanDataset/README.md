@@ -40,7 +40,7 @@ from smpl_webuser.serialization import load_model
 import numpy as np
 
 ## Read smpl parameter
-with open('./data_sample/smpl_params.txt', 'r') as fp:
+with open('./data_sample/results_xxx_xxxxxxxx_xxx_1_F/xxxxx/smpl_params.txt', 'r') as fp:
     lines = fp.readlines()
     lines = [l[:-2] for l in lines]     # remove '\r\n'
     
