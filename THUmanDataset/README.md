@@ -78,7 +78,49 @@ Consequently, rounding error accumulates as more and more frames are processed.
 
 
 #### Camera Parameters
-TODO
+We provide the camera extrinsic matrix (world-to-camera transformation) in ```cam.txt```. The other camera parameters are list below:
+```python
+# color intrinsic
+c_fx = 1063.8987
+c_fy = 1063.6822
+c_cx = 954.1103
+c_cy = 553.2578
+
+# depth intrinsic
+d_fx = 365.4020
+d_fy = 365.6674
+d_cx = 252.4944
+d_cy = 207.7411
+
+# depth-to-color transformation
+d2c = np.array([
+ [ 9.99968867e-01, -6.80652917e-03, -9.22235761e-03, -5.44798585e-02], 
+ [ 6.69376504e-03,  9.99922175e-01, -1.15625133e-02, -3.41685168e-04], 
+ [ 9.27761963e-03,  1.14376287e-02,  9.99882174e-01, -2.50539462e-03], 
+ [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  1.00000000e+00], 
+    ])
+```
+
+For a point on the mesh/SMPL model, it can be projected onto the corresponding depth/color image as :
+```python
+# project to depth image
+v_ = np.array([v[0], v[1], v[2], 1.0]).reshape([4, 1])
+v_ = np.matmul(w2d, v_).reshape([4])
+x = v_[0] / v_[2] * d_fx + d_cx
+y = v_[1] / v_[2] * d_fy + d_cy
+x = int(round(np.clip(x, 0, dpt.shape[1]-1)))
+y = int(round(np.clip(y, 0, dpt.shape[0]-1)))
+dpt[y, x] = np.array([255, 255, 255])
+
+# project to color image
+v_ = np.matmul(d2c, v_.reshape([4, 1])).reshape([4])
+x = v_[0] / v_[2] * c_fx + c_cx
+y = v_[1] / v_[2] * c_fy + c_cy
+x = int(round(np.clip(x, 0, clr.shape[1]-1)))
+y = int(round(np.clip(y, 0, clr.shape[0]-1)))
+clr[y, x] = np.array([255, 255, 255])
+```
+Please check out ```cam_param_usage.py``` for more details. 
 
 ### Citation
 If you use this code for your research, please consider citing:
