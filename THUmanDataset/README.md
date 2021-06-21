@@ -7,6 +7,9 @@ Zerong Zheng, Tao Yu, Yixuan Wei, Qionghai Dai, Yebin Liu.  ICCV 2019
 
 ![teaser](../assests/example_data2.jpg)
 
+### [2020/06/21] We have released THUman 2.0, a new dataset that contains 500 high-quality human scans captured by a dense DLSR rig. The quality of the scans in THUman 2.0 is much higher that the quality of THUman, so I highly recommend you to use the new dataset. Please go to [https://github.com/ytrock/THuman2.0-Dataset](https://github.com/ytrock/THuman2.0-Dataset) for more details. 
+
+
 NOTE: For privacy protection, please blur the faces if the images or the models appear in any materials that will be published (such as paper, video, poster, etc.)
 
 
